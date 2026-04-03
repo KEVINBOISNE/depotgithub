@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+       stages {
+        stage('Nettoyer dossier workspace') {
+           steps {
+                cleanWs()
+        }
+    }
+        stage('Cloner le Github') {
+            steps {
+                    git branch: 'main', url: 'https://github.com/KEVINBOISNE/depotgithub.git'
+            }
+        }
+
+        stage('Install Docker') {
+            steps {
+                sh 'sudo apt-get update -y'
+                sh 'sudo apt-get install -y docker.io'
+                sh 'sudo systemctl start docker'
+                sh 'sudo chmod 666 /var/run/docker.sock'
+            }
+        }
+
+        stage('build image docker') {
+            steps {
+                sh 'sudo docker image rm -f "mynginx:latest"'
+                sh 'sudo docker build -t "myapp-image'
+                sh 'sudo docker image ls'
+    
+            }
+        }
+        stage('create conteneur ngnix') {
+            steps {
+                sh 'sudo docker rm -f myappcont'
+                sh 'sudo docker run -d --name myappcont --hostname myappcont mynginx:latest'
+                sh 'sudo docker ps'
+            }
+        }
+    }
+}
