@@ -1,0 +1,17 @@
+pepeline {
+    agent any
+     stages {
+        stage('Nettoyer dossier workspace') {
+            steps {
+                cleanWs()
+            }
+
+        }
+                 stage('Cloner le github') {
+            steps {
+                    git branch: 'main', url: 'https://github.com/KEVINBOISNE/depotgithub.git'
+        
+            }
+        }
+     }
+}
