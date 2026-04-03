@@ -23,7 +23,7 @@ pipeline {
 
         stage('build image docker') {
             steps {
-                sh 'sudo docker image rm -f "mynginx:latest"'
+              //  sh 'sudo docker image rm -f "mynginx:latest"'
                 sh 'sudo docker build -t "myapp-image'
                 sh 'sudo docker image ls'
     
@@ -31,7 +31,7 @@ pipeline {
         }
         stage('create conteneur ngnix') {
             steps {
-                sh 'sudo docker rm -f myappcont'
+               // sh 'sudo docker rm -f myappcont'
                 sh 'sudo docker run -d --name myappcont --hostname myappcont mynginx:latest'
                 sh 'sudo docker ps'
             }
